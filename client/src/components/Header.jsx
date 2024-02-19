@@ -6,7 +6,7 @@ import './Header.css'
 const Header = () => {
   return (
     <div className='header'>
-        HandMeUp
+        <Link to = "/"> HandMeUp </Link>
         <Link to = "/login"> LOGIN </Link>
     </div>
   )
