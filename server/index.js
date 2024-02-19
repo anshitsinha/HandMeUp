@@ -1,7 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express()
 
+app.use(cors());
 const PORT = 4000
 mongoose.connect('mongodb+srv://anshitsinha:G2EFw5bCR9L7SwVq@cluster0.9vn34dg.mongodb.net/');
 
