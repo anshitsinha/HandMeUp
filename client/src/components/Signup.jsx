@@ -1,40 +1,40 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from './Header';
 
 const Signup = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const [ username, setusername ] = useState('');
-  const [ password, setpassword ] = useState('');
   const signUp = () => {
-    console.log({username, password});
-    const URL = 'localhost:4000/signup';
+    const URL = 'http://localhost:4000/signup';
     const data = { username, password };
+
     axios.post(URL, data)
-            .then((res) => {
-              console.log(res)
-            })
-            .catch((err) => {
-                alert('SERVER ERR')
-            })
-  }
-  
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div>
       <Header />
       <div>Signup</div>
       Username
-      <input type="text" value={username} onChange={(e) => {setusername(e.target.value)}} />
+      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       <br />
       Password
-      <input type="text" value={password} onChange={(e) => {setpassword(e.target.value)}} />
+      <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
       <br />
       <button onClick={signUp}>Signup</button>
-      < Link to="/login">Login</Link>
+      <Link to="/login">Login</Link>
     </div>
   );
-}
+};
 
 export default Signup;
