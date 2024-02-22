@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from './Header';
 
 const Login = () => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,6 +20,7 @@ const Login = () => {
           console.log(res.data.message);
           if(res.data.token){
             localStorage.setItem('token', res.data.token)
+            navigate('/');
           }
         }
       })
