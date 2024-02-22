@@ -7,7 +7,7 @@ import './Header.css'
 const Header = () => {
   return (
     <div className='header'>
-        <Link to = "/"> HandMeUp </Link>
+        <Link to = "/" className='title'> HandMeUp </Link>
         {!localStorage.getItem('token') ? <Link to = "/login"> LOGIN </Link> : 
         <div>
           <button onClick={logOut}> Logout </button>

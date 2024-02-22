@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser')
 const multer  = require('multer')
@@ -8,6 +9,7 @@ const multer  = require('multer')
 const app = express()
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use('/productsimg', express.static(path.join(__dirname, 'productsimg')));
 
 
 app.use(cors());
