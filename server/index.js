@@ -150,6 +150,20 @@ app.get('/products', (req,res) => {
     
 })
 
+app.get('/products/:pId', (req,res) => {
+    console.log(req.params);
+
+    Products.findOne({ _id: req.params.pId })
+        .then((result) => {
+            res.send({ message: 'success', product: result })
+        })
+        .catch((err) => {
+            res.send({ message: 'server err' })
+        })
+
+})
+
+
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`)
 })
