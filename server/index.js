@@ -85,8 +85,11 @@ const productsSchema = new mongoose.Schema({
     pname: String,
     pdesc: String,
     price: String,
+    location: String,
+    age: String,
     category: String,
     pimage: String,
+    pimage2: String
     
 });
 
@@ -94,40 +97,46 @@ const Products = mongoose.model('Products', productsSchema);
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'productsimg')
+        cb(null, 'productsimg');
     },
     filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.fieldname + '-' + uniqueSuffix)
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, file.fieldname + '-' + uniqueSuffix);
     }
-  })
-  
-  const upload = multer({ storage: storage })
+});
 
-app.post('/add-product',upload.single('pimage'), (req,res)=> {
+const upload = multer({ storage: storage });
+
+app.post('/add-product', upload.fields([{ name: 'pimage', maxCount: 1 }, { name: 'pimage2', maxCount: 1 }]), (req, res) => {
     console.log(req.body);
-    console.log(req.file);
+    console.log(req.files);
     const pname = req.body.pname;
     const pdesc = req.body.pdesc;
     const price = req.body.price;
+    const location = req.body.location;
+    const age = req.body.age;
     const category = req.body.category;
-    const pimage = req.file.path;
+    const pimage = req.files['pimage'][0].path;
+    const pimage2 = req.files['pimage2'][0].path;
     const product = new Products({
         pname,
         pdesc,
         price,
+        location,
+        age,
         category,
-        pimage
+        pimage,
+        pimage2
     });
     product.save()
-    .then(() => {
-        res.send({message: 'done'})
-    })
-    .catch(()=> {
-        res.send({message: 'err'})
-    })
+        .then(() => {
+            res.send({ message: 'done' });
+        })
+        .catch(() => {
+            res.send({ message: 'err' });
+        });
+});
 
-})
 
 app.get('/products', (req,res) => {
     Products.find()
@@ -140,9 +149,6 @@ app.get('/products', (req,res) => {
     })
     
 })
-
-
-
 
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`)

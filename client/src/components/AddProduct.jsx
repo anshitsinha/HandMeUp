@@ -12,6 +12,8 @@ function AddProduct() {
     const [pname, setpname] = useState('');
     const [pdesc, setpdesc] = useState('');
     const [price, setprice] = useState('');
+    const [location, setlocation] = useState('');
+    const [age, setage] = useState('');
     const [category, setcategory] = useState('');
     const [pimage, setpimage] = useState('');
     const [pimage2, setpimage2] = useState('');
@@ -32,6 +34,8 @@ function AddProduct() {
             formData.append('pname', pname)
             formData.append('pdesc', pdesc)
             formData.append('price', price)
+            formData.append('location', location)
+            formData.append('age', age)
             formData.append('category', category)
             formData.append('pimage', pimage)
             formData.append('pimage2', pimage2)
@@ -69,6 +73,19 @@ function AddProduct() {
                 <label> Product Price</label>
                 <input className="form-control" type="text" value={price}
                     onChange={(e) => { setprice(e.target.value) }} />
+                <label> Location </label>
+                <input className="form-control" type="text" value={location}
+                    onChange={(e) => { setlocation(e.target.value) }} />
+                <label> Age </label>
+                <input className="form-control" type="text" value={age}
+                    onChange={(e) => { setage(e.target.value) }} />
+                {/* <label> Location </label>
+                <input className="form-control" type="text" value={location}
+                    onChange={(e) => { setprice(e.target.value) }} />
+                <label> Location </label>
+                <input className="form-control" type="text" value={location}
+                    onChange={(e) => { setprice(e.target.value) }} /> */}
+                    
                 <label> Product Category </label>
                 <select className="form-control" value={category}
                     onChange={(e) => { setcategory(e.target.value) }}>
@@ -91,10 +108,10 @@ function AddProduct() {
                     }} />
 
                 <label> Product Second Image </label>
-                {/* <input className="form-control" type="file"
+                <input className="form-control" type="file"
                     onChange={(e) => {
                         setpimage2(e.target.files[0])
-                    }} /> */}
+                    }} />
                 <button onClick={addProduct} className="btn btn-primary mt-3"> SUBMIT </button>
             </div>
 

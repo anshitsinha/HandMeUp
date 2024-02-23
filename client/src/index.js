@@ -18,7 +18,7 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import AddProduct from './components/AddProduct';
 // import LikedProducts from './components/LikedProducts';
-// import ProductDetail from './components/ProductDetail';
+import ProductDetail from './components/ProductDetail';
 // import CategoryPage from './components/CategoryPage';
 // import MyProducts from './components/MyProducts';
 // import MyProfile from './components/MyProfile';
@@ -56,10 +56,10 @@ const router = createBrowserRouter([
   //   path: "/my-products",
   //   element: (<MyProducts />),
   // },
-  // {
-  //   path: "/product/:productId",
-  //   element: (<ProductDetail />),
-  // },
+  {
+    path: "/product/:productId",
+    element: (<ProductDetail />),
+  },
   // {
   //   path: "/my-profile",
   //   element: (<MyProfile />),

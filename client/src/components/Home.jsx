@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 
 import './Home.css'
 import Header from './Header';
 
 const Home = () => {
+  const navigate = useNavigate()
+
+  
   const [products, setProducts] = useState([]);
+  const [search, setsearch] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,14 +28,46 @@ const Home = () => {
     fetchData();
   }, []);
 
+  const handleSearch = (value) => {
+    setsearch(value);
+}
+
+const handleClick = () => {
+
+  // const url = API_URL + '/search?search=' + search + '&loc=' + localStorage.getItem('userLoc');
+  // axios.get(url)
+  //     .then((res) => {
+  //         setcproducts(res.data.products);
+  //         setissearch(true);
+  //     })
+  //     .catch((err) => {
+  //         alert('Server Err.')
+  //     })
+
+  let filteredProducts = products.filter((item) => {
+      if (item.pname.toLowerCase().includes(search.toLowerCase()) ||
+          item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
+          item.category.toLowerCase().includes(search.toLowerCase())) {
+          return item;
+      }
+  })
+  setProducts(filteredProducts)
+
+}
+
+const handleProduct = (id) => {
+  navigate('/product/' + id)
+}
   return (
     <div>
-      <Header />
+      <Header search={search} handleSearch={handleSearch} handleClick={handleClick} />
       <div>Home</div>
+      {/* <input type="text" />
+      <button>Search</button> */}
       {/* Render your products here */}
       <div className="productsGrid">
         {products && products.length > 0 && products.map((item, index) => (
-          <div className="product" key={index}>
+          <div onClick={() => handleProduct(item._id)} key={item._id} className="product" >
             <div className="productImage"><img  src={'http://localhost:4000' + '/' + item.pimage} /></div> 
             <div className="productDetails">
               
