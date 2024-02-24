@@ -11,6 +11,7 @@ const Home = () => {
   
   const [products, setProducts] = useState([]);
   const [search, setsearch] = useState('');
+  const [isSearch, setisSearch] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,24 +35,24 @@ const Home = () => {
 
 const handleClick = () => {
 
-  // const url = API_URL + '/search?search=' + search + '&loc=' + localStorage.getItem('userLoc');
-  // axios.get(url)
-  //     .then((res) => {
-  //         setcproducts(res.data.products);
-  //         setissearch(true);
-  //     })
-  //     .catch((err) => {
-  //         alert('Server Err.')
-  //     })
+  const url = 'http://localhost:4000' + '/search?search=' + search;
+  axios.get(url)
+      .then((res) => {
+          setProducts(res.data.products);
+          // setissearch(true);
+      })
+      .catch((err) => {
+          alert('Server Err.')
+      })
 
-  let filteredProducts = products.filter((item) => {
-      if (item.pname.toLowerCase().includes(search.toLowerCase()) ||
-          item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
-          item.category.toLowerCase().includes(search.toLowerCase())) {
-          return item;
-      }
-  })
-  setProducts(filteredProducts)
+  // let filteredProducts = products.filter((item) => {
+  //     if (item.pname.toLowerCase().includes(search.toLowerCase()) ||
+  //         item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
+  //         item.category.toLowerCase().includes(search.toLowerCase())) {
+  //         return item;
+  //     }
+  // })
+  // setProducts(filteredProducts)
 
 }
 
@@ -65,6 +66,7 @@ const handleProduct = (id) => {
       {/* <input type="text" />
       <button>Search</button> */}
       {/* Render your products here */}
+      {/* {isSearch && products && products.length == 0 && <h5> No Results Found </h5>} */}
       <div className="productsGrid">
         {products && products.length > 0 && products.map((item, index) => (
           <div onClick={() => handleProduct(item._id)} key={item._id} className="product" >

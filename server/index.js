@@ -67,7 +67,9 @@ app.post('/login', (req, res) => {
 
                     res.send({
                         message: 'Login Successful',
-                        token: token
+                        
+                        token: token,
+                        userId: result._id
                     });
                 } else {
                     res.send({
@@ -89,7 +91,8 @@ const productsSchema = new mongoose.Schema({
     age: String,
     category: String,
     pimage: String,
-    pimage2: String
+    pimage2: String,
+    addedBy: mongoose.Schema.Types.ObjectId
     
 });
 
@@ -118,6 +121,7 @@ app.post('/add-product', upload.fields([{ name: 'pimage', maxCount: 1 }, { name:
     const category = req.body.category;
     const pimage = req.files['pimage'][0].path;
     const pimage2 = req.files['pimage2'][0].path;
+    const addedBy = req.body.userId;
     const product = new Products({
         pname,
         pdesc,
@@ -126,7 +130,8 @@ app.post('/add-product', upload.fields([{ name: 'pimage', maxCount: 1 }, { name:
         age,
         category,
         pimage,
-        pimage2
+        pimage2,
+        addedBy
     });
     product.save()
         .then(() => {
@@ -148,6 +153,26 @@ app.get('/products', (req,res) => {
         res.send({message: "server err"})
     })
     
+})
+
+app.get('/search', (req,res) => {
+
+    let search = req.query.search;
+
+    Products.find({
+        $or: [
+            { pname: { $regex: search } },
+            { pdesc: { $regex: search } },
+            { price: { $regex: search } },
+        ]
+    })
+        .then((results) => {
+            res.send({ message: 'success', products: results })
+        })
+        .catch((err) => {
+            res.send({ err })
+        })
+
 })
 
 app.get('/products/:pId', (req,res) => {
