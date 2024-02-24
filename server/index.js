@@ -188,6 +188,20 @@ app.get('/products/:pId', (req,res) => {
 
 })
 
+app.post('/my-products', (req, res) => {
+
+    const userId = req.body.userId;
+
+    Products.find({ addedBy: userId })
+        .then((result) => {
+            res.send({ message: 'success', products: result })
+        })
+        .catch((err) => {
+            res.send({ message: 'server err' })
+        })
+        
+})
+
 
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`)

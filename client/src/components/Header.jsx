@@ -21,6 +21,7 @@ const Header = (props) => {
         <div>
           <button onClick={logOut}> Logout </button>
           <Link to = "/add-product"> Add a Product </Link>
+          <Link to = "/my-products"> My Products </Link>
         </div> }
         
     </div>
