@@ -199,9 +199,28 @@ app.post('/my-products', (req, res) => {
         .catch((err) => {
             res.send({ message: 'server err' })
         })
-        
+
 })
 
+app.get('/delete-product', (req, res) => {
+    Products.findOne({ _id: req.query.productId }) // Access query parameters using req.query
+        .then((result) => {
+            if (result.addedBy == req.query.userId) {
+                Products.deleteOne({ _id: req.query.productId })
+                    .then(() => {
+                        res.send({ message: 'success', product: result });
+                    })
+                    .catch((err) => {
+                        res.status(500).send({ message: 'Server error', error: err });
+                    });
+            } else {
+                res.status(403).send({ message: 'Unauthorized' });
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({ message: 'Server error', error: err });
+        });
+});
 
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`)

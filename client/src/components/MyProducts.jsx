@@ -78,26 +78,23 @@ function MyProducts() {
     }
 
     const deleteProduct = (productId) => {
-
-        if(!localStorage.getItem('userId')){
+        if (!localStorage.getItem('userId')) {
             return;
         }
+    
         let userId = localStorage.getItem('userId');
-        const url = API_URL + '/delete-product';
-
-        const data = { userId, productId }
-
-        axios.post(url,data)
-        .then((res) => {
-            if (res.data.message) {
-                console.log('Deleted.')
-            }
-        })
-        .catch((err) => {
-            console.log('Server Err.')
-        })
-
-    }
+        const url = `${API_URL}/delete-product?userId=${userId}&productId=${productId}`; // Construct the URL with query parameters
+    
+        axios.get(url)
+            .then((res) => {
+                if (res.data.message) {
+                    console.log('Deleted.');
+                }
+            })
+            .catch((err) => {
+                console.log('Server Err.');
+            });
+    };
 
 
     return (
@@ -140,6 +137,7 @@ function MyProducts() {
                                 <p className="m-2"> {item.pname}  | {item.category} </p>
                                 <h3 className="m-2 text-danger"> {item.price} </h3>
                                 <p className="m-2 text-success"> {item.pdesc} </p>
+                                <Link to = { `/edit-product/${item._id}` }> Edit </Link>
                                 <button onClick={()=>deleteProduct(item._id)}> Delete </button>
                             </div>
                         )
