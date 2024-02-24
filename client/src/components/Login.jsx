@@ -33,7 +33,10 @@ const Login = () => {
   return (
     <div>
       <Header />
+
+
       <div>Login</div>
+      <div className="loginForm" style={{ marginTop: '50px' }}>
       Username
       <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
       <br />
@@ -41,7 +44,7 @@ const Login = () => {
       <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
       <br />
       <button onClick={logIn}>Login</button>
-      <Link to="/signup">Signup</Link>
+      <Link to="/signup">Signup</Link></div>
     </div>
   );
 };

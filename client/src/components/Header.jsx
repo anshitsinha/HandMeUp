@@ -8,21 +8,27 @@ import './Header.css'
 const Header = (props) => {
   return (
     <div className='header'>
-        <div onClick={() => window.location.reload()} className='title'> HandMeUp </div>
+        <Link to="/" className='title'> HandMeUp </Link>
+        <div className='userControls'>
+          
         <input className='search'
                     type='text'
                     value={props && props.search}
                     onChange={(e) => props.handleSearch && props.handleSearch(e.target.value)
                     }
                 />
-                <button className='search-btn' onClick={() => props.handleClick && props.handleClick()} > Search </button>
+                <div className='search-btn' onClick={() => props.handleClick && props.handleClick()} > Search </div>
         
-        {!localStorage.getItem('token') ? <Link to = "/login"> LOGIN </Link> : 
-        <div>
-          <button onClick={logOut}> Logout </button>
-          <Link to = "/add-product"> Add a Product </Link>
-          <Link to = "/my-products"> My Products </Link>
-        </div> }
+                {!localStorage.getItem('token') ? (
+  <Link to="/login">LOGIN</Link>
+) : (
+  <>
+    <div onClick={logOut}>Logout</div>
+    <Link to="/add-product">Add a Product</Link>
+    <Link to="/my-products">My Products</Link>
+  </>
+)}
+</div>
         
     </div>
   )
