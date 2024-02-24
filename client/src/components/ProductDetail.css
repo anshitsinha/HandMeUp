@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.productWrapper {
+  display: flex;
+}
+
+.productDetailImage {
+  width: 50%;
+  border: 1px solid black;
+  border-top: 0;
+  padding: 10px;
+}
+
+.productDetailImage img {
+  width: 100%;
+  height: auto;
+}
+
+.productInfo {
+  margin: 15px;
+  gap: 10px;
+}
+
+.productTitle {
+  margin-top: 50px;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+.productTitle:first-letter {
+  text-transform: uppercase;
+}

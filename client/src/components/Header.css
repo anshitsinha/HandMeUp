@@ -1,37 +1,40 @@
-@font-face {
-  font-family: 'Medium'; src: url('../Font/NeueHaasDisplayMedium.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'BoldBlack'; src: url('../Font/NeueHaasDisplayBlack.ttf') format('truetype');
+* {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .header {
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  position: fixed;
+  position: sticky;
   height: 3.75em;
   background-color: rgba(255, 255, 255, 0.532);
   width: 100%;
   backdrop-filter: blur(25px);
   border: solid 1px black;
-
   padding: 10px;
+  transition: top 0.9s ease;
 }
 
 .title {
-  font-size: 1.4rem;
+  font-size: 1.45em;
+  font-weight: 800;
   text-transform: uppercase;
-  font-family: 'BoldBlack';
 }
 
 .userControls {
-  
   display: flex;
-  font-family: 'Medium';
+  font-family: "Medium";
   gap: 20px;
-  
+  font-size: 0.85em;
+  font-weight: 550;
+}
+
+.header.scrolled {
+  position: fixed;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  */
+  z-index: 1000; /* Ensure the header stays on top of other content */
 }

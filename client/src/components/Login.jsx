@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import Header from './Header';
+import Header from "./Header";
 
 const Login = () => {
-  const navigate = useNavigate()
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const logIn = () => {
-    const URL = 'http://localhost:4000/login';
+    const URL = "http://localhost:4000/login";
     const data = { username, password };
 
-    axios.post(URL, data)
+    axios
+      .post(URL, data)
       .then((res) => {
         console.log(res.data);
-        if(res.data.message) {
+        if (res.data.message) {
           console.log(res.data.message);
-          if(res.data.token){
-            localStorage.setItem('token', res.data.token);
-                        localStorage.setItem('userId', res.data.userId);
-                        navigate('/');
+          if (res.data.token) {
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("userId", res.data.userId);
+            navigate("/");
           }
         }
       })
@@ -34,17 +35,25 @@ const Login = () => {
     <div>
       <Header />
 
-
       <div>Login</div>
-      <div className="loginForm" style={{ marginTop: '50px' }}>
-      Username
-      <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <br />
-      Password
-      <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <br />
-      <button onClick={logIn}>Login</button>
-      <Link to="/signup">Signup</Link></div>
+      <div className="loginForm" style={{ marginTop: "50px" }}>
+        Username
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <br />
+        Password
+        <input
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <br />
+        <button onClick={logIn}>Login</button>
+        <Link to="/signup">Signup</Link>
+      </div>
     </div>
   );
 };
