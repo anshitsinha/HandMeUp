@@ -63,7 +63,6 @@ function AddProduct() {
       <Header />
       <div className="addProductForm">
         <div className="addProductFormContainer">
-          op
           <div className="addProductImages">
             <label>Product Image</label>
             <input

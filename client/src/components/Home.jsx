@@ -64,7 +64,7 @@ const Home = () => {
         handleSearch={handleSearch}
         handleClick={handleClick}
       />
-      <div>Home</div>
+
       {/* <input type="text" />
       <button>Search</button> */}
       {/* Render your products here */}

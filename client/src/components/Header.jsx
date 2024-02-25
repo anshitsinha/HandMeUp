@@ -40,6 +40,7 @@ const Header = (props) => {
         />
         <div
           className="search-btn"
+          style={{ cursor: "pointer" }}
           onClick={() => props.handleClick && props.handleClick()}
         >
           Search
@@ -49,7 +50,9 @@ const Header = (props) => {
           <Link to="/login">LOGIN</Link>
         ) : (
           <>
-            <div onClick={logOut}>Logout</div>
+            <div onClick={logOut} style={{ cursor: "pointer" }}>
+              Logout
+            </div>
             <Link to="/add-product">Add a Product</Link>
             <Link to="/my-products">My Products</Link>
           </>
