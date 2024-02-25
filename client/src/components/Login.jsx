@@ -8,8 +8,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
 
   const logIn = () => {
     const URL = "http://localhost:4000/login";
@@ -33,15 +31,6 @@ const Login = () => {
       });
   };
 
-  useEffect(() => {
-    if (usernameRef.current && usernameRef.current.value.trim() !== "") {
-      usernameRef.current.parentNode.classList.add("input--filled");
-    }
-    if (passwordRef.current && passwordRef.current.value.trim() !== "") {
-      passwordRef.current.parentNode.classList.add("input--filled");
-    }
-  }, []);
-
   const handleInputFocus = (e) => {
     e.target.parentNode.classList.add("input--filled");
   };
@@ -63,7 +52,6 @@ const Login = () => {
             type="text"
             className="input__field"
             id="input-1"
-            ref={usernameRef}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             onFocus={handleInputFocus}
@@ -79,7 +67,6 @@ const Login = () => {
             type="password"
             className="input__field"
             id="input-2"
-            ref={passwordRef}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             onFocus={handleInputFocus}

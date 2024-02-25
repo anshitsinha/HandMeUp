@@ -40,25 +40,17 @@ textarea {
 
 .input__field {
   position: absolute;
-  margin: 1em 0;
+  margin: 0.8em 0;
   padding: 0.4em;
   width: 100%;
   height: calc(100% - 1.6em);
   border: none;
   border-radius: 0;
   background: transparent;
-  color: Black;
-  font-size: 1em;
+  color: #ffcc00;
+  font-size: 1.55em;
   font-weight: bold;
-  -webkit-appearance: none;
-  -webkit-appearance: none;
-  /* Mozilla */
-  -moz-appearance: none;
-  /* Future Microsoft browsers */
-  -ms-appearance: none;
-  /* Standard */
-  appearance: none;
-  outline: none;
+  -webkit-appearance: none; /* for box shadows to show on iOS */
 }
 
 .input__field:focus {
@@ -110,8 +102,8 @@ textarea {
   position: absolute;
   left: 0;
   width: 100%;
-  height: 2px;
-  background: Black;
+  height: 1px;
+  background: rgb(0, 0, 0);
   -webkit-transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
 }
@@ -167,4 +159,19 @@ textarea {
 
 .question {
   margin-top: 20px;
+}
+
+.productimagesss {
+  margin: 60px;
+}
+
+.addProductFormContainer {
+  display: flex;
+}
+
+.addProductImages {
+  width: 50%;
+  border: 1px solid black;
+  border-top: 0;
+  padding: 10px;
 }
