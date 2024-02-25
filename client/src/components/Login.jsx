@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import Header from "./Header";
+import "./Login.css";
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const logIn = () => {
     const URL = "http://localhost:4000/login";
@@ -31,28 +33,78 @@ const Login = () => {
       });
   };
 
+  useEffect(() => {
+    if (usernameRef.current && usernameRef.current.value.trim() !== "") {
+      usernameRef.current.parentNode.classList.add("input--filled");
+    }
+    if (passwordRef.current && passwordRef.current.value.trim() !== "") {
+      passwordRef.current.parentNode.classList.add("input--filled");
+    }
+  }, []);
+
+  const handleInputFocus = (e) => {
+    e.target.parentNode.classList.add("input--filled");
+  };
+
+  const handleInputBlur = (e) => {
+    const parent = e.target.parentNode;
+    if (e.target.value.trim() === "") {
+      parent.classList.remove("input--filled");
+    }
+  };
+
   return (
     <div>
       <Header />
 
-      <div>Login</div>
-      <div className="loginForm" style={{ marginTop: "50px" }}>
-        Username
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <br />
-        Password
-        <input
-          type="text"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button onClick={logIn}>Login</button>
-        <Link to="/signup">Signup</Link>
+      <div className="loginForm">
+        <span className="input">
+          <input
+            type="text"
+            className="input__field"
+            id="input-1"
+            ref={usernameRef}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+          />
+          <label htmlFor="input-1" className="input__label">
+            <span className="input__label-content">Username</span>
+          </label>
+        </span>
+
+        <span className="input">
+          <input
+            type="password"
+            className="input__field"
+            id="input-2"
+            ref={passwordRef}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+          />
+          <label htmlFor="input-2" className="input__label">
+            <span className="input__label-content">Password</span>
+          </label>
+        </span>
+        <div className="butonss">
+          <button id="send-button" onClick={logIn} type="button">
+            Send
+          </button>
+          <br />
+          <p className="question">Dont have an account?</p>
+          <button
+            id="send-button"
+            onClick={() => {
+              window.location.href = "/signup";
+            }}
+            type="button"
+          >
+            Signup
+          </button>
+        </div>
       </div>
     </div>
   );
