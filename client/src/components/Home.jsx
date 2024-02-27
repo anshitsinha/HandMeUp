@@ -15,7 +15,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = "http://localhost:4000/products";
+        const url = API_URL + "/products";
         const response = await axios.get(url);
         if (response.data.products) {
           setProducts(response.data.products);
@@ -33,7 +33,7 @@ const Home = () => {
   };
 
   const handleClick = () => {
-    const url = "http://localhost:4000" + "/search?search=" + search;
+    const url = API_URL + "/search?search=" + search;
     axios
       .get(url)
       .then((res) => {
@@ -79,7 +79,7 @@ const Home = () => {
               className="product"
             >
               <div className="productImage">
-                <img src={"http://localhost:4000" + "/" + item.pimage} />
+                <img src={API_URL + "/" + item.pimage} />
               </div>
               <div className="productDetails">
                 <p className="productName"> {item.pname}</p>
