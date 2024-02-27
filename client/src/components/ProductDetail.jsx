@@ -39,6 +39,14 @@ const ProductDetail = () => {
   //         })
   // }
 
+  const handleContactButtonClick = () => {
+    window.open(
+      `https://wa.me/91${product.contact}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
   return (
     <>
       <Header />
@@ -67,6 +75,10 @@ const ProductDetail = () => {
               <div> ₹ {product.price} /- </div>
               <p className="m-2"> {product.category} </p>
               <p className="m-2 text-success"> Description: {product.pdesc} </p>
+              <p className="m-2 text-success">{product.contact} </p>
+              <button onClick={handleContactButtonClick} id="sendButton">
+                Contact
+              </button>
 
               {/* {product.addedBy &&
                         <button onClick={() => handleContact(product.addedBy)}>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "./Header";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { FaHeart } from "react-icons/fa";
+
 import "./Home.css";
 import API_URL from "../Constants.js";
 
@@ -60,23 +60,6 @@ function MyProducts() {
     setcproducts(filteredProducts);
   };
 
-  const handleLike = (productId) => {
-    let userId = localStorage.getItem("userId");
-
-    const url = API_URL + "/like-product";
-    const data = { userId, productId };
-    axios
-      .post(url, data)
-      .then((res) => {
-        if (res.data.message) {
-          alert("Liked.");
-        }
-      })
-      .catch((err) => {
-        alert("Server Err.");
-      });
-  };
-
   const deleteProduct = (productId) => {
     if (!localStorage.getItem("userId")) {
       return;
@@ -111,9 +94,6 @@ function MyProducts() {
           cproducts.map((item, index) => {
             return (
               <div key={item._id} className="card m-3 ">
-                <div onClick={() => handleLike(item._id)} className="icon-con">
-                  <FaHeart className="icons" />
-                </div>
                 <img
                   width="300px"
                   height="200px"
@@ -136,9 +116,6 @@ function MyProducts() {
           products.map((item, index) => {
             return (
               <div key={item._id} className="card m-3 ">
-                <div onClick={() => handleLike(item._id)} className="icon-con">
-                  <FaHeart className="icons" />
-                </div>
                 <img
                   width="300px"
                   height="200px"

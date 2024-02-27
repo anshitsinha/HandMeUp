@@ -47,7 +47,7 @@ const Header = (props) => {
         </div>
 
         {!localStorage.getItem("token") ? (
-          <Link to="/login">LOGIN</Link>
+          <Link to="/Login">Login</Link>
         ) : (
           <>
             <div onClick={logOut} style={{ cursor: "pointer" }}>

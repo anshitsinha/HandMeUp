@@ -50,40 +50,40 @@ const Login = () => {
         <span className="input">
           <input
             type="text"
-            className="input__field"
+            className="input-field"
             id="input-1"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
           />
-          <label htmlFor="input-1" className="input__label">
-            <span className="input__label-content">Username</span>
+          <label htmlFor="input-1" className="input-label">
+            <span className="input-label-content">Username</span>
           </label>
         </span>
 
         <span className="input">
           <input
             type="password"
-            className="input__field"
+            className="input-field"
             id="input-2"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
           />
-          <label htmlFor="input-2" className="input__label">
-            <span className="input__label-content">Password</span>
+          <label htmlFor="input-2" className="input-label">
+            <span className="input-label-content">Password</span>
           </label>
         </span>
         <div className="butonss">
-          <button id="send-button" onClick={logIn} type="button">
-            Send
+          <button id="sendButton" onClick={logIn} type="button">
+          Login
           </button>
           <br />
           <p className="question">Dont have an account?</p>
           <button
-            id="send-button"
+            id="sendButton"
             onClick={() => {
               window.location.href = "/signup";
             }}

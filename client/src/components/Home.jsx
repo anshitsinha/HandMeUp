@@ -82,11 +82,10 @@ const Home = () => {
                 <img src={"http://localhost:4000" + "/" + item.pimage} />
               </div>
               <div className="productDetails">
-                <p className="productName">
-                  {" "}
-                  {item.pname} | {item.category}{" "}
+                <p className="productName"> {item.pname}</p>
+                <p className="productNames">
+                  {item.location} {item.contact ? `| ${item.contact} Old` : ""}
                 </p>
-                <p className="productNames"> {item.pdesc} </p>
                 <p className="productPrice"> Rs. {item.price} /- </p>
               </div>
             </div>

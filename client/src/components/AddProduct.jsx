@@ -10,7 +10,7 @@ function AddProduct() {
   const [pdesc, setPdesc] = useState("");
   const [price, setPrice] = useState("");
   const [location, setLocation] = useState("");
-  const [age, setAge] = useState("");
+  const [contact, setContact] = useState("");
   const [category, setCategory] = useState("");
   const [pimage, setPimage] = useState("");
   const [pimage2, setPimage2] = useState("");
@@ -27,7 +27,7 @@ function AddProduct() {
     formData.append("pdesc", pdesc);
     formData.append("price", price);
     formData.append("location", location);
-    formData.append("age", age);
+    formData.append("contact", contact);
     formData.append("category", category);
     formData.append("pimage", pimage);
     formData.append("pimage2", pimage2);
@@ -39,7 +39,7 @@ function AddProduct() {
       .then((res) => {
         if (res.data.message) {
           console.log(res.data.message);
-          // navigate('/')
+          navigate("/");
         }
       })
       .catch((err) => {
@@ -86,7 +86,7 @@ function AddProduct() {
             <span className="input">
               <input
                 type="text"
-                className="input__field"
+                className="input-field"
                 id="input-1"
                 value={pname}
                 onChange={(e) => {
@@ -95,15 +95,15 @@ function AddProduct() {
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
               />
-              <label htmlFor="input-1" className="input__label">
-                <span className="input__label-content">Product Name</span>
+              <label htmlFor="input-1" className="input-label">
+                <span className="input-label-content">Product Name</span>
               </label>
             </span>
 
             <span className="input">
               <input
                 type="text"
-                className="input__field"
+                className="input-field"
                 id="input-3"
                 value={price}
                 onChange={(e) => {
@@ -112,15 +112,15 @@ function AddProduct() {
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
               />
-              <label htmlFor="input-3" className="input__label">
-                <span className="input__label-content">Product Price</span>
+              <label htmlFor="input-3" className="input-label">
+                <span className="input-label-content">Product Price</span>
               </label>
             </span>
 
             <span className="input">
               <input
                 type="text"
-                className="input__field"
+                className="input-field"
                 id="input-4"
                 value={location}
                 onChange={(e) => {
@@ -129,32 +129,32 @@ function AddProduct() {
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
               />
-              <label htmlFor="input-4" className="input__label">
-                <span className="input__label-content">Location</span>
+              <label htmlFor="input-4" className="input-label">
+                <span className="input-label-content">Location</span>
               </label>
             </span>
 
             <span className="input">
               <input
                 type="text"
-                className="input__field"
+                className="input-field"
                 id="input-5"
-                value={age}
+                value={contact}
                 onChange={(e) => {
-                  setAge(e.target.value);
+                  setContact(e.target.value);
                 }}
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
               />
-              <label htmlFor="input-5" className="input__label">
-                <span className="input__label-content">Age</span>
+              <label htmlFor="input-5" className="input-label">
+                <span className="input-label-content">contact</span>
               </label>
             </span>
 
             <span className="input message">
               <input
                 type="text"
-                className="input__field"
+                className="input-field"
                 id="input-2"
                 value={pdesc}
                 onChange={(e) => {
@@ -163,8 +163,8 @@ function AddProduct() {
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
               />
-              <label htmlFor="input-2" className="input__label">
-                <span className="input__label-content">Product Desc</span>
+              <label htmlFor="input-2" className="input-label">
+                <span className="input-label-content">Product Desc</span>
               </label>
             </span>
 
