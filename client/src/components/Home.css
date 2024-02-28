@@ -55,9 +55,14 @@
 
 .productName {
   font-weight: 900;
-  height: 20px;
+  height: 1.5em;
 }
 
 .productNames {
   font-weight: 650;
+}
+
+.productInfoHome {
+  font-weight: 650;
+  margin: 0.15em 0;
 }

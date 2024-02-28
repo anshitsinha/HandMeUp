@@ -1,6 +1,6 @@
 * {
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: Helvetica, sans-serif;
   padding: 0;
   box-sizing: border-box;
 }
@@ -10,7 +10,7 @@
 }
 
 .productDetailImage {
-  width: 50%;
+  flex: 1;
   border: 1px solid black;
   border-top: 0;
   padding: 10px;
@@ -22,6 +22,7 @@
 }
 
 .productInfo {
+  flex: 1;
   margin: 15px;
   gap: 10px;
 }
@@ -37,7 +38,6 @@
 .productTitle:first-letter {
   text-transform: uppercase;
 }
-
 
 #sendButton {
   width: 315px;
@@ -62,4 +62,8 @@
   color: #ffffff;
   -webkit-transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
+}
+
+.productDescription {
+  margin: 1em 0;
 }

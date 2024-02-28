@@ -4,16 +4,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import "./Login.css";
+import API_URL from "../constants";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
 
   const signUp = () => {
-    const URL = "http://localhost:4000/signup";
+    const URL = API_URL + "/signup";
     const data = { username, password };
 
     axios

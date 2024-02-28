@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 import "./Home.css";
-import API_URL from "../Constants.js";
+import API_URL from "../constants";
 
 function MyProducts() {
   const navigate = useNavigate();

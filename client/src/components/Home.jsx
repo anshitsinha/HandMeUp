@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import API_URL from "../constants";
 
 import "./Home.css";
 import Header from "./Header";
@@ -33,25 +34,27 @@ const Home = () => {
   };
 
   const handleClick = () => {
-    const url = API_URL + "/search?search=" + search;
-    axios
-      .get(url)
-      .then((res) => {
-        setProducts(res.data.products);
-        // setissearch(true);
-      })
-      .catch((err) => {
-        alert("Server Err.");
-      });
+    // const url = API_URL + "/search?search=" + search;
+    // axios
+    //   .get(url)
+    //   .then((res) => {
+    //     setProducts(res.data.products);
+    //     // setissearch(true);
+    //   })
+    //   .catch((err) => {
+    //     alert("Server Err.");
+    //   });
 
-    // let filteredProducts = products.filter((item) => {
-    //     if (item.pname.toLowerCase().includes(search.toLowerCase()) ||
-    //         item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
-    //         item.category.toLowerCase().includes(search.toLowerCase())) {
-    //         return item;
-    //     }
-    // })
-    // setProducts(filteredProducts)
+    let filteredProducts = products.filter((item) => {
+      if (
+        item.pname.toLowerCase().includes(search.toLowerCase()) ||
+        item.pdesc.toLowerCase().includes(search.toLowerCase()) ||
+        item.category.toLowerCase().includes(search.toLowerCase())
+      ) {
+        return item;
+      }
+    });
+    setProducts(filteredProducts);
   };
 
   const handleProduct = (id) => {
@@ -83,8 +86,8 @@ const Home = () => {
               </div>
               <div className="productDetails">
                 <p className="productName"> {item.pname}</p>
-                <p className="productNames">
-                  {item.location} {item.contact ? `| ${item.contact} Old` : ""}
+                <p className="productInfoHome">
+                  {item.location} {item.contact ? `| ${item.contact}` : ""}
                 </p>
                 <p className="productPrice"> Rs. {item.price} /- </p>
               </div>

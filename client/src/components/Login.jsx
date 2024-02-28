@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "./Header";
 import "./Login.css";
+import API_URL from "../constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const logIn = () => {
-    const URL = "http://localhost:4000/login";
+    const URL = API_URL + "/login";
     const data = { username, password };
 
     axios
