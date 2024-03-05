@@ -85,7 +85,7 @@ const Login = () => {
           <br />
           <p className="question">Dont have an account?</p>
           
-            <Link  id="sendButton" to="/signup">Signup</Link>
+            <Link  id="sendButtonLink" to="/signup">Signup</Link>
           
         </div>
       </div>

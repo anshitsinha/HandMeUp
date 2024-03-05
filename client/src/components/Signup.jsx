@@ -78,7 +78,7 @@ const Signup = () => {
           </button>
           <br />
           <p className="question">Already have an account?</p>
-          <Link id="sendButton" to="/login">
+          <Link id="sendButtonLink" to="/login">
             Login
           </Link>
         </div>
