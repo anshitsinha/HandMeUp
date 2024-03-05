@@ -65,7 +65,7 @@ function AddProduct() {
       <div className="addProductForm">
         <div className="addProductFormContainer">
           <div className="addProductImages">
-            <label>Product Image</label>
+            <label>Product Primary Image</label>
             <input
               className="form-control"
               type="file"
@@ -74,7 +74,9 @@ function AddProduct() {
               }}
             />
 
-            <label>Product Second Image</label>
+            <br />
+
+            <label>Product Secondary Image</label>
             <input
               className="form-control"
               type="file"
