@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import "./Login.css";
 import API_URL from "../constants";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -77,15 +78,9 @@ const Signup = () => {
           </button>
           <br />
           <p className="question">Already have an account?</p>
-          <button
-            id="sendButton"
-            onClick={() => {
-              window.location.href = "/login";
-            }}
-            type="button"
-          >
+          <Link id="sendButton" to="/login">
             Login
-          </button>
+          </Link>
         </div>
       </div>
     </div>

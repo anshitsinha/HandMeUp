@@ -4,6 +4,7 @@ import axios from "axios";
 import Header from "./Header";
 import "./Login.css";
 import API_URL from "../constants";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -79,19 +80,13 @@ const Login = () => {
         </span>
         <div className="butonss">
           <button id="sendButton" onClick={logIn} type="button">
-          Login
+            Login
           </button>
           <br />
           <p className="question">Dont have an account?</p>
-          <button
-            id="sendButton"
-            onClick={() => {
-              window.location.href = "/signup";
-            }}
-            type="button"
-          >
-            Signup
-          </button>
+          
+            <Link  id="sendButton" to="/signup">Signup</Link>
+          
         </div>
       </div>
     </div>
