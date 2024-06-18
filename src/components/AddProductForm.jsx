@@ -27,6 +27,7 @@ export default function AddProductForm() {
   const imagePickRef2 = useRef(null);
 
   const [imageFileURLs, setImageFileURLs] = useState([null, null]);
+  const [error, setError] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([null, null]);
   const [postLoading, setPostLoading] = useState(false);
   const [imageFileUploading, setImageFileUploading] = useState([false, false]);
@@ -149,9 +150,36 @@ export default function AddProductForm() {
     );
   };
 
+  const validatePhoneNumber = (phoneNumber) => {
+    // Check if phone number is a string of digits and has 10 or more digits
+    const isNumeric = /^\d+$/.test(phoneNumber);
+    return isNumeric && phoneNumber.length >= 10;
+  };
+
   async function submitHandle(event) {
     setPostLoading(true);
     event.preventDefault();
+
+    const { productTitle, phno, description, address, price } = productInfo;
+    if (
+      !productTitle ||
+      !phno ||
+      !description ||
+      !address ||
+      !price ||
+      !imageFileURLs[0] ||
+      !imageFileURLs[1]
+    ) {
+      setError("All fields are required");
+      setPostLoading(false);
+      return;
+    }
+
+    if (!validatePhoneNumber(productInfo.phno)) {
+      setError("Phone number must be numeric and at least 10 digits long.");
+      return;
+    }
+
     const updatedProductInfo = {
       ...productInfo,
       imgURL1: imageFileURLs[0],
@@ -256,6 +284,7 @@ export default function AddProductForm() {
         />
 
         <button>Sell</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </div>
   );
