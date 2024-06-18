@@ -9,10 +9,18 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordAgain, setPasswordAgain] = useState('');
+const router = useRouter();
+const signup = async () => {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    await router.push('/signin');
+  } catch (error) {
+    // Handle any errors here, such as displaying an error message to the user
+    console.error('Error signing up:', error.message);
+    // You might also want to throw the error again or handle it in another way
+  }
+};
 
-  const signup = () => {
-    createUserWithEmailAndPassword(auth, email, password);
-  };
   
   return (
     <>
