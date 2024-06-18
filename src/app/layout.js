@@ -1,8 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+
 import SessionProvider from './SessionProvider';
-import Products from "@/components/Products";
+import Navbar from "src/components/Navbar";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,9 +17,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
        <body className={`${inter.className} bg-bgColor text-white`}>
         <SessionProvider>
-          <Navbar />
+         <Navbar />
           {children}
-          <Products />
+         
         </SessionProvider>
       </body>
     </html>

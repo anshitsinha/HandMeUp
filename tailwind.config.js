@@ -16,9 +16,9 @@ module.exports = {
         secondary: '#2D3748',
         accent: '#38B2AC',
         bgColor: '#121212',
+        gridGrey: '#404040',
         textGrey: 'rgb(105, 105, 105)',
         customColorDark: '#0F1A2B',
-        gridGrey: '#404040'
       },
     },
   },

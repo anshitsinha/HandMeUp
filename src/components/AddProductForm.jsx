@@ -3,7 +3,7 @@ import { signOut, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 import { useEffect, useRef, useState } from "react";
-import { app } from "@/firebase";
+
 import {
   getStorage,
   ref,
@@ -16,9 +16,12 @@ import {
   getFirestore,
   serverTimestamp,
 } from "firebase/firestore";
+import { app } from "@src/firebase";
+import { useRouter } from "next/router";
 
 export default function AddProductForm() {
   const session = useSession();
+  const router = useRouter;
 
   const imagePickRef1 = useRef(null);
   const imagePickRef2 = useRef(null);
@@ -169,11 +172,12 @@ export default function AddProductForm() {
     setImageFileURLs([null, null]);
     setSelectedFiles([null, null]);
     location.reload();
+    router.push("/");
   }
 
   return (
     <div>
-      <form className="flex flex-col" onSubmit={submitHandle}>
+      <form className="flex flex-col bg-bgColor" onSubmit={submitHandle}>
         {/* Product Image 1 */}
         <div onClick={() => imagePickRef1.current.click()}>Image 1</div>
         <input
@@ -212,6 +216,7 @@ export default function AddProductForm() {
 
         {/* Other form inputs */}
         <input
+          className=" bg-bgColor"
           type="text"
           name="productTitle"
           placeholder="Product Title"
@@ -219,12 +224,14 @@ export default function AddProductForm() {
           onChange={productInfoHandle}
         />
         <textarea
+          className=" bg-bgColor"
           placeholder="Product Description"
           value={productInfo.description}
           name="description"
           onChange={productInfoHandle}
         />
         <input
+          className=" bg-bgColor"
           type="text"
           placeholder="Price"
           value={productInfo.price}
@@ -232,6 +239,7 @@ export default function AddProductForm() {
           onChange={productInfoHandle}
         />
         <input
+          className=" bg-bgColor"
           type="text"
           placeholder="Address"
           value={productInfo.address}
@@ -239,6 +247,7 @@ export default function AddProductForm() {
           onChange={productInfoHandle}
         />
         <input
+          className=" bg-bgColor"
           type="text"
           placeholder="Phone Number"
           value={productInfo.phno}

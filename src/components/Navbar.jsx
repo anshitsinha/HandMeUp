@@ -1,12 +1,10 @@
 import Link from "next/link";
 import React from "react";
 import { CiSearch } from "react-icons/ci";
+import { signOut, useSession } from 'next-auth/react';
 import UserControls from "./UserControls";
 
-
 export default function Navbar() {
-
-
   return (
     <div className="flex justify-between">
       {/* title */}
@@ -32,7 +30,7 @@ export default function Navbar() {
       </div>
 
       {/* User Options */}
-      <UserControls />
+     < UserControls />
     </div>
   );
 }
