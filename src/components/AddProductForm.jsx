@@ -1,22 +1,50 @@
-'use client';
+"use client";
+import { signOut, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
-import { useEffect, useRef, useState } from 'react';
-import { app } from '@/firebase';
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { addDoc, collection, getFirestore, serverTimestamp } from 'firebase/firestore';
+import { useEffect, useRef, useState } from "react";
+import { app } from "@/firebase";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import {
+  addDoc,
+  collection,
+  getFirestore,
+  serverTimestamp,
+} from "firebase/firestore";
 
 export default function AddProductForm() {
+  const session = useSession();
+
   const imagePickRef1 = useRef(null);
   const imagePickRef2 = useRef(null);
 
-  const [imageFileUrls, setImageFileUrls] = useState([null, null]);
+  const [imageFileURLs, setImageFileURLs] = useState([null, null]);
   const [selectedFiles, setSelectedFiles] = useState([null, null]);
+  const [postLoading, setPostLoading] = useState(false);
   const [imageFileUploading, setImageFileUploading] = useState([false, false]);
   const db = getFirestore(app);
-  const [productInfo, setProductInfo] = useState({ productTitle: '', phno: '', description: '', address: '', price: '', imgUrl1: '', imgUrl2: '' });
+  const [productInfo, setProductInfo] = useState({
+    productTitle: "",
+    phno: "",
+    description: "",
+    address: "",
+    price: "",
+    imgURL1: "",
+    imgURL2: "",
+    seller: "",
+    timestamp: "",
+  });
 
   function productInfoHandle(event) {
-    setProductInfo(prevState => ({ ...prevState, [event.target.name]: event.target.value }));
+    setProductInfo((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
   }
 
   const addImageToForm = (index, e) => {
@@ -26,9 +54,9 @@ export default function AddProductForm() {
       newSelectedFiles[index] = file;
       setSelectedFiles(newSelectedFiles);
 
-      const newImageFileUrls = [...imageFileUrls];
-      newImageFileUrls[index] = URL.createObjectURL(file);
-      setImageFileUrls(newImageFileUrls);
+      const newImageFileURLs = [...imageFileURLs];
+      newImageFileURLs[index] = URL.createObjectURL(file);
+      setImageFileURLs(newImageFileURLs);
     }
   };
 
@@ -41,7 +69,7 @@ export default function AddProductForm() {
   }, [selectedFiles]);
 
   const uploadImageToStorage = (index) => {
-    setImageFileUploading(prevState => {
+    setImageFileUploading((prevState) => {
       const newUploading = [...prevState];
       newUploading[index] = true;
       return newUploading;
@@ -55,77 +83,92 @@ export default function AddProductForm() {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log(`Upload is ${progress}% done`);
       },
       (error) => {
         console.error("Error uploading image:", error);
-        setImageFileUploading(prevState => {
+        setImageFileUploading((prevState) => {
           const newUploading = [...prevState];
           newUploading[index] = false;
           return newUploading;
         });
 
-        setImageFileUrls(prevState => {
-          const newUrls = [...prevState];
-          newUrls[index] = null;
-          return newUrls;
+        setImageFileURLs((prevState) => {
+          const newURLs = [...prevState];
+          newURLs[index] = null;
+          return newURLs;
         });
 
-        setSelectedFiles(prevState => {
+        setSelectedFiles((prevState) => {
           const newFiles = [...prevState];
           newFiles[index] = null;
           return newFiles;
         });
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImageFileUrls(prevState => {
-            const newUrls = [...prevState];
-            newUrls[index] = downloadURL;
-            return newUrls;
-          });
+        getDownloadURL(uploadTask.snapshot.ref)
+          .then((downloadURL) => {
+            setImageFileURLs((prevState) => {
+              const newURLs = [...prevState];
+              newURLs[index] = downloadURL;
+              return newURLs;
+            });
 
-          setImageFileUploading(prevState => {
-            const newUploading = [...prevState];
-            newUploading[index] = false;
-            return newUploading;
-          });
-        }).catch((error) => {
-          console.error("Error getting download URL:", error);
-          setImageFileUploading(prevState => {
-            const newUploading = [...prevState];
-            newUploading[index] = false;
-            return newUploading;
-          });
+            setImageFileUploading((prevState) => {
+              const newUploading = [...prevState];
+              newUploading[index] = false;
+              return newUploading;
+            });
+          })
+          .catch((error) => {
+            console.error("Error getting download URL:", error);
+            setImageFileUploading((prevState) => {
+              const newUploading = [...prevState];
+              newUploading[index] = false;
+              return newUploading;
+            });
 
-          setImageFileUrls(prevState => {
-            const newUrls = [...prevState];
-            newUrls[index] = null;
-            return newUrls;
-          });
+            setImageFileURLs((prevState) => {
+              const newURLs = [...prevState];
+              newURLs[index] = null;
+              return newURLs;
+            });
 
-          setSelectedFiles(prevState => {
-            const newFiles = [...prevState];
-            newFiles[index] = null;
-            return newFiles;
+            setSelectedFiles((prevState) => {
+              const newFiles = [...prevState];
+              newFiles[index] = null;
+              return newFiles;
+            });
           });
-        });
       }
     );
   };
 
   async function submitHandle(event) {
+    setPostLoading(true);
     event.preventDefault();
     const updatedProductInfo = {
       ...productInfo,
-      imgUrl1: imageFileUrls[0],
-      imgUrl2: imageFileUrls[1]
+      imgURL1: imageFileURLs[0],
+      imgURL2: imageFileURLs[1],
+      seller: session?.data?.user?.email,
+      timestamp: serverTimestamp(),
     };
+
     console.log("Form Submitted!!");
     console.log(updatedProductInfo);
-    const docRef = await addDoc(collection(db, 'products'), updatedProductInfo);
+    const docRef = await addDoc(collection(db, "products"), updatedProductInfo);
     console.log("Pushed to db", docRef);
+    setPostLoading(false);
+
+    // setText('');
+    //Mishra se chna hai
+
+    setImageFileURLs([null, null]);
+    setSelectedFiles([null, null]);
+    location.reload();
   }
 
   return (
@@ -140,8 +183,14 @@ export default function AddProductForm() {
           onChange={(e) => addImageToForm(0, e)}
           hidden
         />
-        {selectedFiles[0] && <img src={imageFileUrls[0]} alt=""  className={`w-full max-h-[250px] object-cover cursor-pointer
-            ${imageFileUploading[0] ? 'animate-pulse' : ''}`} />}
+        {selectedFiles[0] && (
+          <img
+            src={imageFileURLs[0]}
+            alt=""
+            className={`w-full max-h-[250px] object-cover cursor-pointer
+            ${imageFileUploading[0] ? "animate-pulse" : ""}`}
+          />
+        )}
 
         {/* Product Image 2 */}
         <div onClick={() => imagePickRef2.current.click()}>Image 2</div>
@@ -152,15 +201,50 @@ export default function AddProductForm() {
           onChange={(e) => addImageToForm(1, e)}
           hidden
         />
-        {selectedFiles[1] && <img src={imageFileUrls[1]} alt=""  className={`w-full max-h-[250px] object-cover cursor-pointer
-            ${imageFileUploading[1] ? 'animate-pulse' : ''}`}/>}
+        {selectedFiles[1] && (
+          <img
+            src={imageFileURLs[1]}
+            alt=""
+            className={`w-full max-h-[250px] object-cover cursor-pointer
+            ${imageFileUploading[1] ? "animate-pulse" : ""}`}
+          />
+        )}
 
         {/* Other form inputs */}
-        <input type="text" name='productTitle' placeholder="Product Title" value={productInfo.title} onChange={productInfoHandle} />
-        <textarea placeholder="Product Description" value={productInfo.description} name="description" onChange={productInfoHandle} />
-        <input type="text" placeholder="Price" value={productInfo.price} name="price" onChange={productInfoHandle} />
-        <input type="text" placeholder="Address" value={productInfo.address} name="address" onChange={productInfoHandle} />
-        <input type="text" placeholder="Phone Number" value={productInfo.phno} name='phno' onChange={productInfoHandle} />
+        <input
+          type="text"
+          name="productTitle"
+          placeholder="Product Title"
+          value={productInfo.title}
+          onChange={productInfoHandle}
+        />
+        <textarea
+          placeholder="Product Description"
+          value={productInfo.description}
+          name="description"
+          onChange={productInfoHandle}
+        />
+        <input
+          type="text"
+          placeholder="Price"
+          value={productInfo.price}
+          name="price"
+          onChange={productInfoHandle}
+        />
+        <input
+          type="text"
+          placeholder="Address"
+          value={productInfo.address}
+          name="address"
+          onChange={productInfoHandle}
+        />
+        <input
+          type="text"
+          placeholder="Phone Number"
+          value={productInfo.phno}
+          name="phno"
+          onChange={productInfoHandle}
+        />
 
         <button>Sell</button>
       </form>
