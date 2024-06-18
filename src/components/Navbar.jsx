@@ -1,25 +1,38 @@
 import Link from "next/link";
 import React from "react";
+import { CiSearch } from "react-icons/ci";
+import UserControls from "./UserControls";
+
 
 export default function Navbar() {
+
+
   return (
     <div className="flex justify-between">
       {/* title */}
-      <div> HandMeUp</div>
+
+      <Link className="font-sans font-bold text-3xl" href={"/"}>
+        HandMeUp
+      </Link>
 
       {/* Search */}
-      <div>
+      <div >
         <form action="">
-          <input type="text" />
-          <button>Search</button>
+          <input
+            type="text"
+            name="search"
+            id="search"
+            className="bg-bgColor border rounded px-2 py-1"
+            aria-label="Search"
+          />
+          <button className="flex-col justify-center items-center">
+            <CiSearch  className="text-xl"  />{" "}
+          </button>
         </form>
       </div>
 
       {/* User Options */}
-      <div className="flex gap-5">
-        <Link href={'/add-product'}>Sell</Link>
-        <Link href={'/login'}>LogIn</Link>
-      </div>
+      <UserControls />
     </div>
   );
 }
