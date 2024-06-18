@@ -156,6 +156,10 @@ export default function AddProductForm() {
     return isNumeric && phoneNumber.length >= 10;
   };
 
+  const validatePrice = (price) => {
+    return !isNaN(price) && price.trim() !== '';
+  };
+
   async function submitHandle(event) {
     setPostLoading(true);
     event.preventDefault();
@@ -177,6 +181,11 @@ export default function AddProductForm() {
 
     if (!validatePhoneNumber(productInfo.phno)) {
       setError("Phone number must be numeric and at least 10 digits long.");
+      return;
+    }
+
+    if (!validatePrice(productInfo.price)) {
+      setError("Price must be a valid number.");
       return;
     }
 
