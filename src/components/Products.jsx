@@ -1,3 +1,5 @@
+"use client";
+
 import {
   collection,
   getDocs,
@@ -17,8 +19,6 @@ export default async function Products() {
   querySnapshot.forEach((doc) => {
     data.push({ id: doc.id, ...doc.data() });
   });
-
-
 
   return (
     <div className="container mx-auto p-4 flex flex-wrap justify-center">
