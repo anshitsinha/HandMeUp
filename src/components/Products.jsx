@@ -1,5 +1,4 @@
 
-import React, { useEffect, useState } from "react";
 import {
   collection,
   getDocs,
@@ -7,27 +6,18 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { app } from "../firebase"; // Adjust the path as necessary
+
+import { app } from "../firebase";
 import { Product } from "./Product";
 
-
-export default function Products() {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const db = getFirestore(app);
-      const q = query(collection(db, "products"), orderBy("timestamp", "desc"));
-      const querySnapshot = await getDocs(q);
-      let fetchedData = [];
-      querySnapshot.forEach((doc) => {
-        fetchedData.push({ id: doc.id, ...doc.data() });
-      });
-      setData(fetchedData);
-    };
-
-    fetchData();
-  }, []);
+export default async function Products() {
+  const db = getFirestore(app);
+  const q = query(collection(db, "products"), orderBy("timestamp", "desc"));
+  const querySnapshot = await getDocs(q);
+  let data = [];
+  querySnapshot.forEach((doc) => {
+    data.push({ id: doc.id, ...doc.data() });
+  });
 
   return (
     <div className="container mx-auto p-4 flex flex-wrap justify-center">
