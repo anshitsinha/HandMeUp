@@ -21,4 +21,4 @@ export default function Sell() {
   );
 }
 
-sell.requireAuth = true;
+Sell.requireAuth = true;
