@@ -1,5 +1,5 @@
 
-"use client";
+
 import React from "react";
 import Products from "src/components/Products";
 
