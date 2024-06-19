@@ -29,7 +29,7 @@ export default function AddProductForm() {
   const [imageFileURLs, setImageFileURLs] = useState([null, null]);
   const [error, setError] = useState("");
   const [selectedFiles, setSelectedFiles] = useState([null, null]);
-  const [postLoading, setPostLoading] = useState(false);
+
   const [imageFileUploading, setImageFileUploading] = useState([false, false]);
   const db = getFirestore(app);
   const [productInfo, setProductInfo] = useState({
@@ -161,7 +161,7 @@ export default function AddProductForm() {
   };
 
   async function submitHandle(event) {
-    setPostLoading(true);
+    
     event.preventDefault();
 
     const { productTitle, phno, description, address, price } = productInfo;
@@ -175,7 +175,7 @@ export default function AddProductForm() {
       !imageFileURLs[1]
     ) {
       setError("All fields are required");
-      setPostLoading(false);
+    
       return;
     }
 
@@ -201,14 +201,14 @@ export default function AddProductForm() {
     console.log(updatedProductInfo);
     const docRef = await addDoc(collection(db, "products"), updatedProductInfo);
     console.log("Pushed to db", docRef);
-    setPostLoading(false);
+   
 
     // setText('');
     //Mishra se chna hai
 
     setImageFileURLs([null, null]);
     setSelectedFiles([null, null]);
-    location.reload();
+    
     router.push("/");
   }
 

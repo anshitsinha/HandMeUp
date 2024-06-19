@@ -5,18 +5,18 @@ import { deleteDoc, getFirestore, doc } from "firebase/firestore";
 import { app } from "@src/firebase";
 import { useRouter } from "next/navigation";
 
-export default function DeleteProduct({ data }) {
+export default function DeleteProduct({ data: product }) {
   const db = getFirestore(app);
-  const router = useRouter(); // Get router object from useRouter hook
+  const router = useRouter();
   const { data: session } = useSession();
 
   const deleteProduct = async () => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        if (session?.user?.email === data.seller) {
-          await deleteDoc(doc(db, "products", data.id));
+        if (session?.user?.email === product.seller) {
+          await deleteDoc(doc(db, "products", product.id));
           console.log("Product successfully deleted!");
-          router.push("/"); // Use router.push to navigate to home page
+          router.push("/");
         } else {
           alert("You are not authorized to delete this post");
         }
@@ -26,13 +26,9 @@ export default function DeleteProduct({ data }) {
     }
   };
 
-   console.log(data.seller);
-  console.log(session?.user?.email);
-
   return (
     <div>
-      
-      {session?.user?.email === data.seller && (
+      {session?.user?.email === product.seller && (
         <div onClick={deleteProduct}>Delete</div>
       )}
     </div>

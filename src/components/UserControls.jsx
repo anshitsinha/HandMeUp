@@ -5,7 +5,7 @@ import React from "react";
 import { signOut, useSession } from "next-auth/react";
 
 const UserControls = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   return (
     <div className="flex gap-5">
