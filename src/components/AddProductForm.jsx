@@ -17,11 +17,11 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { app } from "@src/firebase";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export default function AddProductForm() {
   const session = useSession();
-  const router = useRouter;
+  const router = useRouter();
 
   const imagePickRef1 = useRef(null);
   const imagePickRef2 = useRef(null);
