@@ -31,7 +31,7 @@ export default function Products() {
   }, []);
 
   return (
-    <div className="container mx-auto p-4 flex flex-wrap justify-center w-11/12">
+    <div className=" mx-auto  flex flex-wrap justify-center ">
       {data.map((product) => (
         <Product key={product.id} product={product} id={product.id} />
       ))}
