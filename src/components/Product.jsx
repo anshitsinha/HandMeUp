@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 export const Product = ({ product, id }) => {
+
   return (
     <div className="border border-gridGrey rounded-lg m-4 p-2 w-full sm:w-64">
       <Link href={`/products/${id}`}>
@@ -12,8 +13,17 @@ export const Product = ({ product, id }) => {
         />
       </Link>
       <Link href={`/products/${id}`}>
-        <h3> {product?.productTitle}</h3>
-        <h3> {product?.price}</h3>
+        <div className="flex justify-between mt-1">
+          <div className="flex-col justify-between">
+            <p className="font-bold text-lg"> {product?.productTitle}</p>
+            <p className="text-textGrey text-xs"> {product?.address} </p>
+          </div>
+          <div>
+     
+
+            <p> &#8377; {product?.price} </p>
+          </div>
+        </div>
       </Link>
     </div>
   );

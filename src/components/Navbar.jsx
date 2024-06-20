@@ -7,7 +7,7 @@ import { Search } from "./Search";
 
 export default function Navbar() {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between m-2">
       {/* title */}
       <Link className="font-sans font-bold text-3xl" href={"/"}>
         HandMeUp
